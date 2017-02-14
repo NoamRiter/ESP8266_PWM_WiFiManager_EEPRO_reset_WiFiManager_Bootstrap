@@ -17,6 +17,8 @@ int pwm7 = 0;
 int pwm8 = 0;
 int pwm9 = 0;
 
+String passw = "z";
+bool rightPassword = false;
 String year = "2017";
 String refreshPage = "45";
 String mainHeading   = "Noams ESP experiment";
@@ -27,8 +29,7 @@ String copyrights = "SystemArt";
 String webpage       = ""; //init webpage
 String Email = "noamriter@hotmail.com";
 int port = 80; // Change the port to the one you open
-String IpAddress = "15.00.24.00:" + (String)port; //change it to your public/lokal IP ends with :. Open a rout/port on your ESP in router (TCP/UDP), Change the port to the one you open
-
+String IpAddress = "192.168.1.179:" + (String)port; //change it to your public/lokal IP ends with :. Open a rout/port on your ESP in router (TCP/UDP), Change the port to the one you open
 int openWifiManager;
 
 ESP8266WebServer server(port);
@@ -79,6 +80,7 @@ void setup()
   server.on("/Contact", Contact);      // IP/Contact
   server.on("/RestartWifiManager", RestartWifiManager);     //IP/RestartWifiManager
   server.on("/PinValue", PinValue);  //IP/PinValue
+  server.on("/Password", Password);  //IP/PasswordValue
 }
 
 void loop() {

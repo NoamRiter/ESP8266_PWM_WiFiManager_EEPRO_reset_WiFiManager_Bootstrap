@@ -18,8 +18,6 @@ void Portfolio(){
   server.send(200, "text/html", webpage);
 }
 
-
-
 void javascriptPortfolio(){
   javaScript="<script type='text/javascript'>\n";  // here you can add javascript to this page
   

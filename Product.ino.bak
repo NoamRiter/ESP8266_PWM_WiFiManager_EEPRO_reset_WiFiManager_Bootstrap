@@ -57,16 +57,34 @@ void Product(){
         webpage += "</table>\n";
       
       webpage += "<button type=\"button\" class=\"btn btn-success\" onClick=\"SendCom()\">Restart wifiManager</button>\n"; //Need To reset modul manual just nu
-       
+      
+      
   getFooter();
   server.send(200, "text/html", webpage);
 }
 
 void javascriptProduct(){  // here you can add javascript to this page
   javaScript = "<script type=\"text/javascript\">\n";
-  javaScript += "function SendCom()\n";
+  javaScript += "function SendCom(){\n";
+  javaScript += "var password;\n";
+  javaScript += "var pw=\"yourin\";\n"; //change password as you want
+  javaScript += "password=prompt(\"Please enter your password to view this page!\",\" \");\n";
+  javaScript += "if (password==pw)\n";
   javaScript += "{\n";
-  javaScript += "window.open(\"http://" + IpAddress + "/Password\", \"PassWord Manager \", 'width=250,height=250')\n";
+  javaScript += "alert(\"your WiFiManager is going to restart in the next boot!\");\n";
+  
+  
+  javaScript += "var req = new XMLHttpRequest();\n";
+  javaScript += "url =\"http://" + IpAddress + "/RestartWifiManager\";\n";
+  javaScript += "req.open(\"GET\", url);\n";
+  javaScript += "req.send();\n";
+  javaScript += "window.location.reload();\n";
+  javaScript += "}\n";
+  javaScript += "else\n";
+  javaScript += "{";
+  javaScript += "alert(\"Exit without reset WiFiManager!\");\n";
+  javaScript += "}\n";
+  
   javaScript += "}\n";
 
   javaScript += "function sendPWM(Pin,Value){\n";
