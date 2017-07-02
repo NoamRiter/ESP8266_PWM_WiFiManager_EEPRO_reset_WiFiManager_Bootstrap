@@ -6,6 +6,7 @@
 #include <WiFiManager.h>     // https://github.com/tzapu/WiFiManager
 #include <DNSServer.h>
 
+
 const char *ssid      = "your_ssid"; //empty
 const char *password  = "your_password";  //empty
 
@@ -29,19 +30,21 @@ String copyrights = "SystemArt";
 String webpage       = ""; //init webpage
 String Email = "noamriter@hotmail.com";
 int port = 80; // Change the port to the one you open
-String IpAddress = "192.168.1.179:" + (String)port; //change it to your public/lokal IP ends with :. Open a rout/port on your ESP in router (TCP/UDP), Change the port to the one you open
+String PublicIpAddress = "0"; //change it to your public IP. Open a rout/port on your ESP in router (TCP/UDP), Change the port to the one you open
+String IpAddress = "0";
 int openWifiManager;
 
 ESP8266WebServer server(port);
+
 void setup()
 {
   pinMode(14,OUTPUT);
-  pinMode(0,OUTPUT);
+  pinMode(0,OUTPUT);  
   pinMode(2,OUTPUT);
   pinMode(13,OUTPUT);
   pinMode(12,OUTPUT);
 
-  analogWrite(5, 0);
+  analogWrite(14, 0);
   analogWrite(0, 0);
   analogWrite(2, 0);
   analogWrite(12, 0);
@@ -69,7 +72,17 @@ void setup()
   server.begin(); 
   Serial.println("Webserver started!"); 
   Serial.println("Your local IP address: http://"+WiFi.localIP().toString()+":" + port);  // Print local IP address
-  Serial.println("Your divice IP address: http://"+ IpAddress +":" + port);  // Print divice variable IP address.
+
+  if(PublicIpAddress == "0")
+  {
+    IpAddress = WiFi.localIP().toString()+":" + port;
+    }
+  else
+  {
+    IpAddress = PublicIpAddress + ":" + port;
+    }
+  
+  Serial.println("Your divice IP address: http://"+ IpAddress);  // Print divice variable IP address.
   
   server.on("/",         Product); // IP/
   server.on("/homepage", homepage);   // IP/homepage
@@ -85,7 +98,9 @@ void setup()
 
 void loop() {
   server.handleClient();
-  ESPDelay(500); // delay for the system to not crush
+  // if any av the button is called need to time neo pixels change without delay
+ 
+ // ESPDelay(10); // delay for the system to not crush
 }
 
 void ESPDelay(int ms) 

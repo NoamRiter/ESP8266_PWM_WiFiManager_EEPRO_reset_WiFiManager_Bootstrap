@@ -55,7 +55,7 @@ void Product(){
           webpage += "</tr>\n";
         
         webpage += "</table>\n";
-      
+    
       webpage += "<button type=\"button\" class=\"btn btn-success\" onClick=\"SendCom()\">Restart wifiManager</button>\n"; //Need To reset modul manual just nu
        
   getFooter();
@@ -78,6 +78,5 @@ void javascriptProduct(){  // here you can add javascript to this page
   javaScript += "req.open(\"POST\", url);\n";
   javaScript += "req.send(JSON.stringify(data));\n";
   javaScript += "}\n";
-  
   javaScript += "</script>\n";
 }
